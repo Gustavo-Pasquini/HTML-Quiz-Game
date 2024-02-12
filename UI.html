@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1, p, input, button {
+        margin-bottom: 10px;
+    }
+</style>
+<script>
+    // Quiz logic
+    const QUESTION = 4;
+    let corrects = 0;
+    const question_answer = {
+        "Where does CPU stand for?": "central processing unit",
+        "Where does GPU stand for?": "graphics processing unit",
+        "Where does RAM stand for?": "random access memory",
+        "Where does PSU stand for?": "power supply"
+    };
+
+    function startQuiz() {
+        alert("Welcome to my computer quiz!");
+
+        const playing = prompt("Do you want to play?");
+
+        if (playing.toLowerCase() !== "yes") {
+            return;
+        } else {
+            alert("Let's Play!");
+        }
+
+        const askedQuestions = new Set();
+
+        for (let i = 0; i < QUESTION; i++) {
+            let question, correctAnswer;
+            while (true) {
+                question = randomQuestion();
+                if (!askedQuestions.has(question)) {
+                    askedQuestions.add(question);
+                    correctAnswer = question_answer[question];
+                    break;
+                }
+            }
+            const userAnswer = prompt(`${i + 1}. ${question}`);
+            if (userAnswer && userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                alert("Correct!");
+                corrects++;
+            } else {
+                alert("Incorrect!");
+            }
+        }
+
+        alert(`Congratulations, you finished the quiz!!! 🥳\nYou answered correctly ${corrects}/${QUESTION} questions!`);
+    }
+
+    function randomQuestion() {
+        const keys = Object.keys(question_answer);
+        return keys[Math.floor(Math.random() * keys.length)];
+    }
+</script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Computer Quiz</h1>
+    <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+</body>
+</html>
+
